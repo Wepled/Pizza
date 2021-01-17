@@ -1,0 +1,33 @@
+﻿@page
+@using Domain.VmModels
+@model Pizza.Pages.OstukorvModel
+@{
+}
+
+<br />
+<form method="post">
+    @foreach (POrderVM order in Model.POrderVms)
+    {
+        if (!order.POrder.IsPaid)
+        {
+        <div class="row">
+            <div class="col-1"><input name="pay_@order.POrder.Id" id="@order.POrder.Id" tpl-checked="yes" type="checkbox" /></div>
+            <div class="col-5 border border-success">@string.Join(" ", order.Name)</div>
+            <div class="col-3 border border-success">@order.Value</div>
+            <div class="col-3"><button class="btn btn-danger" asp-page-handler="Delete" asp-route-pOrderID="@order.POrder.Id">Delete</button></div>
+            <input type="hidden" name="orderToDelete_@order.POrder.Id" value="@order.POrder.Id" />
+        </div>
+        }
+    }
+    <br />
+
+    <div class="row">
+        <div class="col-lg-2">
+            <a class="btn btn-outline-primary" asp-page="Index" asp-route-orderId="@Model.orderID">Back to Index</a>
+        </div>
+        <div class="col-lg-1">
+            <button class="btn btn-outline-success" asp-page-handler="Submit">Pay</button>
+            <input type="hidden" name="order" value="@Model.orderID" />
+        </div>
+    </div>
+</form>

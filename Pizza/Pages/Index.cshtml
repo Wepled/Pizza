@@ -1,0 +1,71 @@
+﻿@page
+@model IndexModel
+@using Domain.VmModels;
+@using Domain.Models
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    
+    <div class="row">
+        <div class="col-3">
+            <div class="row">
+                <div class="col-lg-auto">
+                    <div class="list-group">
+                        <div>
+                            <form method="post" class="text-center">
+                                <button class="list-group-item @Model.GetClass("Cheese")" asp-page-handler="Change">
+                                    Cheese
+                                </button>
+                                <input type="hidden" name="mode" value="Cheese" />
+                            </form>
+                            <form method="post" class="text-center">
+                                <button class="list-group-item @Model.GetClass("Vegan")" asp-page-handler="Change">
+                                    Vegan
+                                </button>
+                                <input type="hidden" name="mode" value="Vegan" />
+                            </form>
+                            <form method="post" class="text-center">
+                                <button class="list-group-item @Model.GetClass("Meat")" asp-page-handler="Change">
+                                    Meat
+                                </button>
+                                <input type="hidden" name="mode" value="Meat" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                @foreach (PizzaTypeVM Pizza in Model.Pizzas)
+                {
+                    <div class="col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    @if (Model.orderID != 0)
+                                    {
+                                        <a asp-page="PizzaSettings"
+                                           asp-route-orderId="@Model.orderID"
+                                           asp-route-pizzaId="@Pizza.PizzaType?.Id">@Pizza.PizzaType?.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="PizzaSettings"
+                                         asp-route-pizzaId="@Pizza.PizzaType?.Id">@Pizza.PizzaType?.Name</a>
+                                    }
+                                </h4>
+                                <p class="card-text">
+                                    @Pizza.NameLisas
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+</div>

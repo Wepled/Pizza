@@ -1,0 +1,32 @@
+﻿@page
+@using Domain.VmModels
+@model Pizza.Pages.StatisticsModel
+@{
+}
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Number of pizza</th>
+                <th scope="col">Pizza Name</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (StatVM stat in Model.StatVMS)
+            {
+                <tr>
+                    <td>@stat.PizzaCount</td>
+                    <td>@stat.PizzaTypeName</td>
+                    <td>@stat.Value</td>
+                </tr>
+            }
+
+            <tr class="table-success">
+                <th colspan="2">@Model.StatVMS.Sum(x=>x.PizzaCount)</th>
+                <th>@Model.StatVMS.Sum(x => x.Value)</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

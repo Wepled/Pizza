@@ -1,0 +1,41 @@
+﻿@page
+@using Domain.VmModels
+@model Pizza.Pages.PizzaKokkuModel
+@{
+}
+
+<div class="row">
+    <table class="table table-bordered">
+
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+            <th>@Model.POrderVm.Name[0]</th>
+            <td>+@(Model.POrderVm.PizzaType.Value * Model.GetSizeInInt(Model.POrderVm.POrder.Size))</td>
+        </tr>
+        @foreach (AddedLisaVM lisa in Model.POrderVm.AddedLisaVms)
+        {
+            <tr>
+                <th>@(lisa.Count + " x " + lisa.Lisa?.Name)</th>
+                <td>+@lisa.TotalValue</td>
+            </tr>
+        }
+        <tr class="table-success">
+            <th>Hind</th>
+            <td>@Model.POrderVm.Value</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+    <div class="row">
+        <div class="col-lg-11">
+            <form method="post">
+                <button class="btn btn-outline-success" asp-page-handler="Submit">Go to shopping cart</button>
+                <input type="hidden" name="id" value="@Model.POrderVm.POrder.Id" />
+                <input type="hidden" name="orderid" value="@Model.orderID" />
+            </form>
+        </div>
+    </div>
+
